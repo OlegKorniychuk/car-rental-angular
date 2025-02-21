@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Car } from '../car.model';
 import { NgFor, NgIf, NgSwitch } from '@angular/common';
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { HeaderComponent } from '../../layout/header/header.component';
 
 @Component({
   selector: 'app-car-list',

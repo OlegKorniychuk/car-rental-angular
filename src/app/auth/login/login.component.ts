@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-login',
   imports: [RouterModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class HeaderComponent {
+export class LoginComponent {
 
 }
