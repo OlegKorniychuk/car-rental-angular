@@ -1,12 +1,35 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService, LoginCredentials } from '../services/user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule],
+  imports: [RouterModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  destroyRef = inject(DestroyRef);
+  constructor(
+    private readonly userService: UserService,
+    private readonly router: Router,
+  ) { };
 
+  public loginForm: FormGroup = new FormGroup({
+    phoneNumber: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
+
+  public submitForm(): void {
+    let observable = this.userService.login(this.loginForm.value);
+    observable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 }
