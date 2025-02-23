@@ -1,3 +1,8 @@
 <body>
   <p>Your Profile</p>
+  <p>Authorized: {{!!userData}}</p>
+  <div>
+    <h2>You are:</h2>
+    <p>{{userData?.firstName}}{{userData?.middleName}}{{userData?.surname}}</p>
+  </div>
 </body>
