@@ -24,12 +24,13 @@ export class LoginComponent {
   });
 
   public submitForm(): void {
-    let observable = this.userService.login(this.loginForm.value);
-    observable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.router.navigate(['/']),
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    this.userService
+      .login(this.loginForm.value)
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (error) => {
+          console.log(error);
+        }
+      });
   }
 }

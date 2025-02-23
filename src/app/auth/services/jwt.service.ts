@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class JwtService {
-  public getToken(): string {
+  public getToken(): string | undefined {
     return window.localStorage['jwtToken'];
   }
 
-  public getRefresh(): string {
+  public getRefresh(): string | undefined {
     return window.localStorage['refreshToken'];
   }
 
