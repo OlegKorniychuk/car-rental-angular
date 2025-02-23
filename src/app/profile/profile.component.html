@@ -1,8 +1,25 @@
 <body>
-  <p>Your Profile</p>
-  <p>Authorized: {{!!userData}}</p>
+  <div *ngIf="error">{{error}}</div>
   <div>
-    <h2>You are:</h2>
-    <p>{{userData?.firstName}}{{userData?.middleName}}{{userData?.surname}}</p>
+    <p *ngIf="isUserLoading">Loading Profile Data...</p>
+    <div *ngIf="!isUserLoading">
+      <h1>Wellcome, {{userData?.firstName}} {{userData?.surname}}</h1>
+    </div>
+  </div>
+  <div>
+    <h2>Your Rentals</h2>
+    <p *ngIf="isRentalsLoading">Loading Rentals...</p>
+    <div *ngIf="!isRentalsLoading">
+      <ul *ngIf="userRentals.length" class="rental-list">
+        <li *ngFor="let rental of userRentals" class="rental-list-element">
+          <div>
+            <p>Car: {{rental.carId.make}}</p>
+            <p>Start date: {{rental.rentalStartDate}}</p>
+            <p>End date: {{rental.rentalEndDate}}</p>
+            <p>Price Per Day: {{rental.carId.rentPerDay}}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </body>

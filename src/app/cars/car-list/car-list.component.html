@@ -1,15 +1,16 @@
 <body>
-  <ul class="car-list">
-    <li class="car-list-element" *ngFor="let car of carList">
-      <p>Model: {{car.make}}</p>
-      <p>Type: {{car.type}}</p>
-      <p>Production Year: {{car.productionYear}}</p>
-      <p>Daily Rent Price: {{car.rentPerDay}}</p>
-      <p *ngIf="car.isAvailable; else elseBlock">Available</p>
-      <ng-template #elseBlock>
-        <p>Not Available</p>
-      </ng-template>
-      <button>Rent</button>
+  <div *ngIf="isLoading">Loading...</div>
+  <div *ngIf="error">{{error}}</div>
+
+  <ul *ngIf="cars.length" class="car-list">
+    <li *ngFor="let car of cars" class="car-list-element">
+      <div>
+        <p>Model: {{car.make}} </p>
+        <p>Production year: {{car.productionYear}}</p>
+        <p>Price per day: {{car.rentPerDay}}</p>
+        <p>Available: {{car.isAvailable}}</p>
+        <a *ngIf="car.isAvailable" [routerLink]="['/rent', car.id]">Rent</a>
+      </div>
     </li>
   </ul>
 </body>

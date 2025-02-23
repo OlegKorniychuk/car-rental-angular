@@ -1,3 +1,50 @@
-<div>
-  <p>Register a new account</p>
-</div>
+<body>
+  <h1>Register</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div>
+      <label>First Name:
+        <input formControlName="firstName">
+      </label>
+    </div>
+    <div>
+      <label>Middle Name:
+        <input formControlName="middleName">
+      </label>
+    </div>
+    <div>
+      <label>Last Name:
+        <input formControlName="surname">
+      </label>
+    </div>
+    <div>
+      <label>Address:
+        <input formControlName="address">
+      </label>
+    </div>
+    <div>
+      <label>Phone Number:
+        <input formControlName="phoneNumber">
+      </label>
+    </div>
+    <div>
+      <label>Password:
+        <input formControlName="password">
+      </label>
+    </div>
+    <div>
+      <label>Confirm Password:
+        <input formControlName="confirmPassword">
+      </label>
+    </div>
+    <div>
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </div>
+    <p *ngIf="registerForm.controls['confirmPassword'].hasError('passwordsMismatch')">
+      Passwords do not match
+    </p>
+  </form>
+  <div>
+    <p>Already have an account?</p>
+    <a routerLink="/login">Log In</a>
+  </div>
+</body>

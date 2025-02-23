@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, distinctUntilChanged, map, Observable, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
+import { Car } from '../../cars/car.model';
 
 
 const API_URL = 'http://localhost:3000/api';
@@ -36,6 +37,17 @@ export interface UserResponse {
   data: { client: User };
 }
 
+export interface DetailedRental {
+  id: string;
+  carId: Car;
+  clientId: string;
+  rentalStartDate: string;
+  rentalEndDate: string;
+  createdAt: string;
+  updatedAt: string;
+  isOpen: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +59,7 @@ export class UserService {
   constructor(
     private readonly http: HttpClient,
     private readonly jwt: JwtService,
+    private readonly router: Router
   ) { }
 
   public login(credentials: LoginCredentials): Observable<LoginResponse> {
@@ -70,13 +83,7 @@ export class UserService {
     password: string;
     confirmPassword: string;
   }): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(`${API_URL}/signup`, credentials)
-      .pipe(tap((resp) => {
-        this.jwt.setToken(resp.accessToken);
-        this.jwt.setRefresh(resp.refreshToken);
-        this.userDataSubject.next(resp.data.client);
-      }));
+    return this.http.post<LoginResponse>(`${API_URL}/signup`, credentials);
   }
 
   public logout(): Observable<{ status: string, data: null }> {
@@ -88,8 +95,12 @@ export class UserService {
         next: () => {
           this.jwt.deleteToken();
           this.userDataSubject.next(null);
+          this.router.navigate(['/']);
         },
         error: (error) => {
+          this.jwt.deleteToken();
+          this.userDataSubject.next(null);
+          this.router.navigate(['/']);
           console.error('Server failed to delete refresh token');
         }
       })
@@ -114,10 +125,33 @@ export class UserService {
   }
 
   public getCurrentUser(): Observable<User> {
-    console.log('getCurrentUser called');
     return this.http.get<UserResponse>(`${API_URL}/clients/me`).pipe(
-      tap((resp) => this.userDataSubject.next(resp.data.client)),
-      map((resp) => resp.data.client)
+      map((resp) => resp.data.client),
+      tap({
+        next: (client) => this.userDataSubject.next(client),
+        error: (error) => {
+          console.log(error);
+          if (error.status === 401) {
+            this.jwt.deleteToken();
+            this.userDataSubject.next(null);
+          }
+          this.router.navigate(['/home']);
+        }
+      }),
     )
   }
+
+  public getUserRentals(): Observable<DetailedRental[]> {
+    return this.userDataSubject.pipe(
+      switchMap(user => {
+        if (!user) {
+          return of([]);
+        }
+        return this.http.get<{ status: string, results: number, data: { rentals: DetailedRental[] } }>(
+          `${API_URL}/clients/${user.id}/rentals`
+        ).pipe(map(resp => resp.data.rentals));
+      })
+    );
+  }
+
 }

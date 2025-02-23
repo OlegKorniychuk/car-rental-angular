@@ -1,0 +1,18 @@
+<body>
+  <div *ngIf="error">{{error}}</div>
+  <div *ngIf="!error">
+    <form [formGroup]="rentForm" (ngSubmit)="rentCar()">
+      <div>
+        <label>Rent end date:
+          <input formControlName="endDate" type="date">
+          <p *ngIf="rentForm.controls['endDate'].hasError('minDate')">
+            End date must be at least one day after today.
+          </p>
+        </label>
+      </div>
+      <div>
+        <button type="submit" [disabled]="rentForm.invalid">Rent</button>
+      </div>
+    </form>
+  </div>
+</body>

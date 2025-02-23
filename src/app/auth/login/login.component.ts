@@ -3,7 +3,6 @@ import { RouterModule, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService, LoginCredentials } from '../services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
