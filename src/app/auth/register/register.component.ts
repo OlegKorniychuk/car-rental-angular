@@ -4,10 +4,14 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule, ValidationErro
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NgIf } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterModule, ReactiveFormsModule, NgIf],
+  imports: [RouterModule, ReactiveFormsModule, NgIf, MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -20,7 +24,7 @@ export class RegisterComponent {
 
   public registerForm: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
-    middleName: new FormControl(''),
+    middleName: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),

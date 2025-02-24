@@ -3,12 +3,12 @@ import { Car } from '../car.model';
 import { NgFor, NgIf, NgSwitch } from '@angular/common';
 import { CarService } from '../car.service';
 import { RouterModule } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User, UserService } from '../../auth/services/user.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-car-list',
-  imports: [NgFor, NgIf, RouterModule],
+  imports: [NgFor, NgIf, RouterModule, MatCardModule, MatButtonModule],
   templateUrl: './car-list.component.html',
   styleUrl: './car-list.component.scss'
 })

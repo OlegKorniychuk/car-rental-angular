@@ -1,16 +1,20 @@
-<body>
+<body class="main-container">
   <div *ngIf="isLoading">Loading...</div>
   <div *ngIf="error">{{error}}</div>
 
   <ul *ngIf="cars.length" class="car-list">
-    <li *ngFor="let car of cars" class="car-list-element">
-      <div>
-        <p>Model: {{car.make}} </p>
-        <p>Production year: {{car.productionYear}}</p>
-        <p>Price per day: {{car.rentPerDay}}</p>
-        <p>Available: {{car.isAvailable}}</p>
-        <a *ngIf="car.isAvailable" [routerLink]="['/rent', car.id]">Rent</a>
-      </div>
+    <li *ngFor="let car of cars">
+      <mat-card class="car-list-element">
+        <mat-card-content>
+          <p>Model: {{car.make}} </p>
+          <p>Production year: {{car.productionYear}}</p>
+          <p>Price per day: {{car.rentPerDay}}</p>
+          <p>Available: {{car.isAvailable}}</p>
+        </mat-card-content>
+        <mat-card-actions class="actions">
+          <a mat-flat-button *ngIf="car.isAvailable" [routerLink]="['/rent', car.id]">Rent</a>
+        </mat-card-actions>
+      </mat-card>
     </li>
   </ul>
 </body>

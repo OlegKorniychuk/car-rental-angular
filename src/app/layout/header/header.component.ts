@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { User, UserService } from '../../auth/services/user.service';
 import { NgIf } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button'
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, NgIf],
+  imports: [RouterModule, NgIf, MatToolbarModule, MatButtonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../auth/services/user.service';
 import { DetailedRental } from '../auth/services/user.service';
 import { NgFor, NgIf } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-profile',
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, MatCardModule, MatButtonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

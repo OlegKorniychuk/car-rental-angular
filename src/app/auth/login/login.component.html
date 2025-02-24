@@ -1,22 +1,28 @@
-<body>
-  <div>Login</div>
-  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-    <div>
-      <label>Phone Number:
-        <input formControlName="phoneNumber">
-      </label>
-    </div>
-    <div>
-      <label>Password:
-        <input formControlName="password">
-      </label>
-    </div>
-    <div>
-      <button type="submit" [disabled]="loginForm.invalid">Submit</button>
-    </div>
-  </form>
-  <div>
-    <p>Don't have an account?</p>
-    <a routerLink="/register">Register</a>
-  </div>
+<body class="main-container">
+  <mat-card class="card-centered">
+    <mat-card-content>
+      <mat-card-header>
+        <h2>Log In</h2>
+      </mat-card-header>
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <mat-form-field class="full-width">
+          <mat-label>Phone Number:</mat-label>
+          <input matInput formControlName="phoneNumber" type="tel">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Password:</mat-label>
+          <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <div>
+          <button mat-flat-button type="submit" [disabled]="loginForm.invalid">Log In</button>
+        </div>
+      </form>
+      <mat-card-footer>
+        <div>
+          <p>Don't have an account?</p>
+          <a mat-button routerLink="/register">Register</a>
+        </div>
+      </mat-card-footer>
+    </mat-card-content>
+  </mat-card>
 </body>

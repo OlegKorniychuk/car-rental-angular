@@ -1,18 +1,26 @@
-<body>
+<body class="main-container">
   <div *ngIf="error">{{error}}</div>
   <div *ngIf="!error">
-    <form [formGroup]="rentForm" (ngSubmit)="rentCar()">
-      <div>
-        <label>Rent end date:
-          <input formControlName="endDate" type="date">
-          <p *ngIf="rentForm.controls['endDate'].hasError('minDate')">
-            End date must be at least one day after today.
-          </p>
-        </label>
-      </div>
-      <div>
-        <button type="submit" [disabled]="rentForm.invalid">Rent</button>
-      </div>
-    </form>
+    <mat-card class="card-centered">
+      <mat-card-content>
+        <mat-card-header>
+          <h2>Rent this car</h2>
+        </mat-card-header>
+        <form [formGroup]="rentForm" (ngSubmit)="rentCar()">
+          <div>
+            <mat-form-field class="full-width">
+              <mat-label>Rent end date:</mat-label>
+              <input matInput formControlName="endDate" type="date">
+            </mat-form-field>
+            <p *ngIf="rentForm.controls['endDate'].hasError('minDate')">
+              End date must be at least one day after today.
+            </p>
+          </div>
+          <div>
+            <button mat-flat-button type="submit" [disabled]="rentForm.invalid">Rent</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
 </body>

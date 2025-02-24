@@ -1,17 +1,17 @@
 <header>
-  <div class="app-header">
+  <mat-toolbar class="app-header">
     <h1>Car Rental</h1>
     <div class="navbar">
       <p>
-        <a routerLink="">Home</a>
+        <a mat-button routerLink="">Home</a>
       </p>
       <p>
-        <a routerLink="client-profile">Profile</a>
+        <a mat-button routerLink="client-profile">Profile</a>
       </p>
       <p>
-        <button *ngIf="isAuthenticated" (click)="logOut()">Log out</button>
-        <a *ngIf="!isAuthenticated" routerLink="login">Log In</a>
+        <button mat-button *ngIf="isAuthenticated" (click)="logOut()">Log out</button>
+        <a mat-button *ngIf="!isAuthenticated" routerLink="login">Log In</a>
       </p>
     </div>
-  </div>
+  </mat-toolbar>
 </header>

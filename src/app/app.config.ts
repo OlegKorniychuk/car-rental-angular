@@ -7,6 +7,7 @@ import { jwtInterceptor } from './auth/jwt.interceptor';
 import { JwtService } from './auth/services/jwt.service';
 import { UserService } from './auth/services/user.service';
 import { EMPTY } from 'rxjs';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export function initAuth(jwtService: JwtService, userService: UserService) {
   return () => {
@@ -25,6 +26,6 @@ export const appConfig: ApplicationConfig = {
       const jwtService = inject(JwtService);
       const userService = inject(UserService);
       return (jwtService.getToken() ? userService.getCurrentUser() : EMPTY)
-    })
+    }), provideAnimationsAsync()
   ]
 };

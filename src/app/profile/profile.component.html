@@ -1,4 +1,4 @@
-<body>
+<body class="main-container">
   <div *ngIf="error">{{error}}</div>
   <div>
     <p *ngIf="isUserLoading">Loading Profile Data...</p>
@@ -12,12 +12,14 @@
     <div *ngIf="!isRentalsLoading">
       <ul *ngIf="userRentals.length" class="rental-list">
         <li *ngFor="let rental of userRentals" class="rental-list-element">
-          <div>
-            <p>Car: {{rental.carId.make}}</p>
-            <p>Start date: {{rental.rentalStartDate}}</p>
-            <p>End date: {{rental.rentalEndDate}}</p>
-            <p>Price Per Day: {{rental.carId.rentPerDay}}</p>
-          </div>
+          <mat-card>
+            <mat-card-content>
+              <p>Car: {{rental.carId.make}}</p>
+              <p>Start date: {{rental.rentalStartDate}}</p>
+              <p>End date: {{rental.rentalEndDate}}</p>
+              <p>Price Per Day: {{rental.carId.rentPerDay}}</p>
+            </mat-card-content>
+          </mat-card>
         </li>
       </ul>
     </div>
